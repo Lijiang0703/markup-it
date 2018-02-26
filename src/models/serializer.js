@@ -66,13 +66,13 @@ class Serializer extends RuleFunction {
         .matchKind('text')
         .then(state => {
             const text = state.peek();
-            let ranges = text.getRanges();
+            let ranges = text.getLeaves();
 
             // Transform ranges
             ranges = ranges.map(range => transform(state, range));
 
             // Create new text and push it back
-            const newText = Text.create({ ranges });
+            const newText = Text.create({ leaves: ranges});
             return state
                 .shift()
                 .unshift(newText);
