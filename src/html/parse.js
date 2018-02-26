@@ -71,7 +71,7 @@ const TAGS_TO_DATA = {
 };
 
 
-const SCHEMA_NO_EXTRA_TEXT = {
+const SCHEMA_NO_EXTRA_TEXT1 = {
     rules: [
 
         /**
@@ -104,7 +104,24 @@ const SCHEMA_NO_EXTRA_TEXT = {
         }
     ]
 };
+var SCHEMA_NO_EXTRA_TEXT = {
+    schema:{},
+    validateNode: function validateNode(node) {
+        if (node.kind != 'block'|| object.kind != 'inline') return;
+        var invalids = node.nodes.filter(function (n) {
+            if (n.kind != 'text') return;
+            if (n.text.length > 0) return;
+            return true;
+        });
+        if (!invalids.size) return;
+        return function (change) {
+            invalids.forEach(function (child) {
+              change.removeNodeByKey(child.key, { normalize: false });
+            });
+          };
+    }
 
+}
 function resolveHeadingAttrs(attribs) {
     return attribs.id
         ? { id: attribs.id }
@@ -235,7 +252,7 @@ function splitLines(text, sep) {
  * @param {Document} document
  * @return {Document}
  */
-function removeExtraEmptyText(document) {
+function removeExtraEmptyText1(document) {
     const slateState = Slate
     .State.fromJSON({
         document
@@ -247,6 +264,22 @@ function removeExtraEmptyText(document) {
     const noExtraEmptyText = slateState.change().normalize(Slate.Schema.create(SCHEMA_NO_EXTRA_TEXT)).state;
     // Then normalize it using Slate's core schema.
     const normalizedState = Slate.State.fromJSON(noExtraEmptyText.toJSON());
+
+    return normalizedState.document;
+}
+
+function removeExtraEmptyText(document) {
+    var slateState = Slate.Value.fromJSON({
+        document: document
+    }, {
+        normalize: false
+    });
+
+    // Remove first extra empty text nodes, since for now HTML introduces a lot of them
+    // var noExtraEmptyText = slateState.change().normalize(Slate.Schema.create(SCHEMA_NO_EXTRA_TEXT)).state;
+    var noExtraEmptyText = slateState.change().normalize(Slate.Schema.create({plugins:[SCHEMA_NO_EXTRA_TEXT]})).value;
+    // Then normalize it using Slate's core schema.
+    var normalizedState = Slate.Value.fromJSON(noExtraEmptyText.toJSON());
 
     return normalizedState.document;
 }
