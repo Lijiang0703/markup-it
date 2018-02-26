@@ -28,7 +28,7 @@ node_modules
 .lock-wscript
 
 # Babel dist directory
-lib
+#lib
 
 # Test file for dev
 test.md
