@@ -7,13 +7,16 @@ const block = {
     newline:    /^\n+/,
     code:       /^((?: {4}|\t)[^\n]+\n*)+/,
     hr:         /^( *[-*_]){3,} *(?:\n|$)/,
+    video: /^@[\\]?\[(.*?)[\\]?\][\\]?\((.*?)\)/,
+    adv_table:/^@\{table\}\((.+)\)/,
     blockquote: /^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,
     html:       /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
     def:        /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n|$)/,
     footnote:   /^\[\^([^\]]+)\]: ([^\n]+)/,
-    paragraph:  /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def|math|comment|customBlock|table|tablenp))+)\n*/,
+    paragraph:  /^((?:[^\n]+\n?(?!hr|video|heading|lheading|blockquote|tag|def|math|comment|customBlock|table|tablenp))+)\n*/,
     text:       /^[^\n]+/,
     fences:     /^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,
+    divBlock:   /^ *(:::{1,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,
     yamlHeader: /^ *(?=```)/,
     math:       /^ *(\${2,}) *(\n+[\s\S]+?)\s*\1 *(?:\n|$)/,
     list:       {
@@ -30,7 +33,7 @@ const block = {
 };
 
 const _tag = '(?!(?:'
-    + 'a|em|strong|small|s|cite|q|dfn|abbr|data|time|code'
+    + 'a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|divBlock'
     + '|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo'
     + '|span|br|wbr|ins|del|img)\\b)\\w+(?!:\\/|[^\\w\\s@]*@)\\b';
 
@@ -48,6 +51,7 @@ block.html = replace(block.html)('comment', /<!--[\s\S]*?-->/)('closed', /<(tag)
 
 block.paragraph = replace(block.paragraph)
     ('hr', block.hr)
+    ('video',block.video)
     ('heading', heading.normal)
     ('lheading', heading.line)
     ('blockquote', block.blockquote)

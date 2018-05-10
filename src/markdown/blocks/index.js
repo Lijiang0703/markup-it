@@ -1,7 +1,9 @@
 const hr = require('./hr');
+const video = require('./video');
 const heading = require('./heading');
 const paragraph = require('./paragraph');
 const codeBlock = require('./code');
+const divBlock = require('./divBlock');
 const blockquote = require('./blockquote');
 const unstyled = require('./unstyled');
 const footnote = require('./footnote');
@@ -12,6 +14,7 @@ const math = require('./math');
 const comment = require('./comment');
 const html = require('./html');
 const custom = require('./custom');
+const adv_table = require('./advtable');
 
 module.exports = [
     html,
@@ -27,5 +30,8 @@ module.exports = [
     comment,
     custom,
     paragraph,
-    unstyled
+    unstyled,
+    divBlock,
+    video,
+    adv_table
 ];
