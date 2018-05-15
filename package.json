@@ -1,33 +1,20 @@
 {
-  "_from": "git+ssh://git@github.com/Lijiang0703/markup-it.git",
-  "_id": "markup-it@6.0.0",
-  "_inBundle": false,
-  "_location": "/markup-it",
-  "_phantomChildren": {
-    "camelcase": "3.0.0",
-    "cliui": "3.2.0",
-    "decamelize": "1.2.0",
-    "get-caller-file": "1.0.2",
-    "lodash.assign": "4.2.0",
-    "os-locale": "1.4.0",
-    "read-pkg-up": "1.0.1",
-    "require-directory": "2.1.1",
-    "require-main-filename": "1.0.1",
-    "set-blocking": "2.0.0",
-    "string-width": "1.0.2",
-    "which-module": "1.0.0",
-    "window-size": "0.2.0",
-    "y18n": "3.2.1"
+  "name": "markup-it",
+  "version": "6.0.0",
+  "description": "Pipeline for working with markup input (for example Markdown)",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "prepublish1": "babel --out-dir ./lib ./src",
+    "test": "mocha --compilers js:babel-core/register --reporter spec ./test/index.js"
   },
-  "_requested": {
+  "files": [
+    "lib",
+    "*.md"
+  ],
+  "repository": {
     "type": "git",
-    "raw": "markup-it@git+ssh://git@github.com/Lijiang0703/markup-it.git",
-    "name": "markup-it",
-    "escapedName": "markup-it",
-    "rawSpec": "git+ssh://git@github.com/Lijiang0703/markup-it.git",
-    "saveSpec": "git+ssh://git@github.com/Lijiang0703/markup-it.git",
-    "fetchSpec": "ssh://git@github.com/Lijiang0703/markup-it.git",
-    "gitCommittish": null
+    "url": "git+https://github.com/GitbookIO/markup-it.git"
   },
   "_requiredBy": [
     "/"
@@ -50,11 +37,10 @@
   },
   "bundleDependencies": false,
   "dependencies": {
-    "asciidoctor.js": "^1.5.5-4",
     "detect-newline": "^2.1.0",
+    "entities": "^1.1.1",
     "escape-string-regexp": "^1.0.5",
     "front-matter": "^2.1.2",
-    "html-entities": "1.2.0",
     "htmlclean": "^2.7.8",
     "htmlparser2": "3.9.2",
     "indent-string": "2.1.0",
@@ -62,7 +48,6 @@
     "js-yaml": "^3.7.0",
     "ltrim": "0.0.3",
     "object-values": "^1.0.0",
-    "range-utils": "^1.1.0",
     "rtrim": "0.0.3",
     "split-lines": "^1.1.0",
     "trim-newlines": "^1.0.0",
@@ -70,10 +55,9 @@
     "trim-trailing-lines": "^1.1.0",
     "type-of": "^2.0.1",
     "uid": "0.0.2",
-    "yargs": "^4.7.1"
+    "warning": "^3.0.0"
   },
   "deprecated": false,
-  "description": "Pipeline for working with markup input (for example Markdown)",
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-core": "^6.18.0",
@@ -86,8 +70,8 @@
     "mocha": "^2.4.5",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "slate": "^0.24.0",
-    "slate-hyperprint": "^1.1.1"
+    "slate": "^0.33.2",
+    "slate-hyperprint": "^2.2.0"
   },
   "homepage": "https://github.com/GitbookIO/markup-it#readme",
   "keywords": [
@@ -97,21 +81,9 @@
     "gitbook"
   ],
   "license": "Apache-2.0",
-  "main": "lib/index.js",
-  "name": "markup-it",
   "peerDependencies": {
     "immutable": "^3.8.1",
     "react": "^0.14.0 || ^15.0.0 || ^16.0.0",
-    "slate": "0.x.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GitbookIO/markup-it.git"
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "prepublish1": "babel --out-dir ./lib ./src",
-    "test": "mocha --compilers js:babel-core/register --reporter spec ./test/index.js"
-  },
-  "version": "6.0.0"
+    "slate": "^0.33.0"
+  }
 }

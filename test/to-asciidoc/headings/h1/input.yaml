@@ -1,8 +1,0 @@
-document:
-  nodes:
-    - kind: block
-      type: header_one
-      nodes:
-        - kind: text
-          ranges:
-            - text: Hello World

@@ -1,6 +1,71 @@
+
 # Release notes
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
+
+### Unreleased
+
+### 8.0.1
+
+- Fix parsing of `[def]` for code blocks in list 
+
+### 8.0.0
+
+- Remove Asciidoc support
+- Limit size of the package by publishing only the `dist` folder
+
+### 7.0.4
+
+- Fix parsing of HTML entities like emojis (ex: `&#128268;`)
+
+### 7.0.3
+
+Import fixes from 6.0.6:
+
+- Fix empty custom block serialization
+- Fix invalid custom block parsing
+
+### 7.0.2
+
+Import fixes from 6.0.2, 6.0.3, 6.0.4 and 6.0.5:
+
+- Fix empty custom block parsing
+- Fix newlines and whitespace collapsing in paragraph. #99
+- Fix link reference parsing when mixed with HTML
+- Fix bold parsed as list inside a text
+
+### 7.0.1
+
+- Paragraph now correctly stop at {% custom-blocks %} found in the text.
+
+### 7.0.0
+
+- Upgrade Slate to 0.33
+
+### 6.0.6
+
+- Fix empty custom block serialization
+- Fix invalid custom block parsing
+
+### 6.0.5
+
+- Fix empty custom block tag parsing
+
+### 6.0.4
+
+- Fix newlines and whitespace collapsing in paragraph. #99
+
+### 6.0.3
+
+- Fix link reference parsing when mixed with HTML
+
+### 6.0.2
+
+- Fix bold parsed as list inside a text
+
+### 6.0.1
+
+- Paragraph now correctly stop at {% custom-blocks %} found in the text.
 
 ### 6.0.0
 

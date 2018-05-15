@@ -11,9 +11,10 @@ const block = {
     adv_table:/^@\{table\}\((.+)\)/,
     blockquote: /^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,
     html:       /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
-    def:        /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n|$)/,
+    // [someref]: google.com
+    def:        /^ {0,3}\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n|$)/,
     footnote:   /^\[\^([^\]]+)\]: ([^\n]+)/,
-    paragraph:  /^((?:[^\n]+\n?(?!hr|video|heading|lheading|blockquote|tag|def|math|comment|customBlock|table|tablenp))+)\n*/,
+    paragraph:  /^((?:(?:(?!notParagraphPart)[^\n])+\n?(?!notParagraphNewline))+)\n*/,
     text:       /^[^\n]+/,
     fences:     /^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,
     divBlock:   /^ *(:::{1,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,
@@ -32,24 +33,53 @@ const block = {
     comment:     /^{#\s*(.*?)\s*(?=[#%}]})#}/
 };
 
+// Any string matching these inside a line will marks the end of the current paragraph
+const notParagraphPart = 'customBlock';
+// Any line starting with these marks the end of the previous paragraph.
+const notParagraphNewline = 'hr|heading|lheading|blockquote|tag|def|math|comment|customBlock|table|tablenp|fences|ol';
+
 const _tag = '(?!(?:'
     + 'a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|divBlock'
     + '|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo'
     + '|span|br|wbr|ins|del|img)\\b)\\w+(?!:\\/|[^\\w\\s@]*@)\\b';
 
-block.list.item = replace(block.list.item, 'gm')(/allbull/g, block.list.bullet)(/bullet/g, block.list.bullet)();
+block.list.item = replace(block.list.item, 'gm')
+    (/allbull/g, block.list.bullet)
+    (/bullet/g, block.list.bullet)
+    ();
 
-block.blockquote = replace(block.blockquote)('def', block.def)();
+block.blockquote = replace(block.blockquote)
+    ('def', block.def)
+    ();
 
-block.list.block = replace(block.list.block)(/allbull/g, block.list.bullet)('hr', '\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))')('def', '\\n+(?=' + block.def.source + ')')('footnote', block.footnote)();
+block.list.block = replace(block.list.block)
+    (/allbull/g, block.list.bullet)
+    ('hr', '\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))')
+    ('def', '\\n+(?=' + block.def.source + ')')
+    ('footnote', block.footnote)
+    ();
 
-block.list.block_ul = replace(block.list.block)(/bullet/g, block.list.bullet_ul)();
-block.list.block_ol = replace(block.list.block)(/bullet/g, block.list.bullet_ol)();
-block.list.block = replace(block.list.block)(/bullet/g, block.list.bullet)();
+block.list.block_ul = replace(block.list.block)
+    (/bullet/g, block.list.bullet_ul)
+    ();
 
-block.html = replace(block.html)('comment', /<!--[\s\S]*?-->/)('closed', /<(tag)[\s\S]+?<\/\1>/)('closing', /<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g, _tag)();
+block.list.block_ol = replace(block.list.block)
+    (/bullet/g, block.list.bullet_ol)
+    ();
+block.list.block = replace(block.list.block)
+    (/bullet/g, block.list.bullet)
+    ();
+
+block.html = replace(block.html)
+    ('comment', /<!--[\s\S]*?-->/)
+    ('closed', /<(tag)[\s\S]+?<\/\1>/)
+    ('closing', /<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)
+    (/tag/g, _tag)
+    ();
 
 block.paragraph = replace(block.paragraph)
+    ('notParagraphPart', notParagraphPart)
+    ('notParagraphNewline', notParagraphNewline)
     ('hr', block.hr)
     ('video',block.video)
     ('heading', heading.normal)
@@ -62,11 +92,8 @@ block.paragraph = replace(block.paragraph)
     ('comment', block.comment)
     ('table', table.normal)
     ('tablenp', table.nptable)
+    ('fences', block.fences.source.replace('\\1', '\\2'))
+    ('ol', block.list.block_ol.source.replace('\\1', '\\3'))
     ();
-
-block.paragraph = replace(block.paragraph)('(?!', '(?!'
-        + block.fences.source.replace('\\1', '\\2') + '|'
-        + block.list.block_ol.source.replace('\\1', '\\3') + '|'
-    )();
 
 module.exports = block;

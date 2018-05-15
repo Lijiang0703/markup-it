@@ -17,8 +17,10 @@ const custom = require('./custom');
 const adv_table = require('./advtable');
 
 module.exports = [
-    html,
+    // All link definition (for link reference) must be resolved first.
     definition,
+    // HTML must be high in the stack too.
+    html,
     table,
     hr,
     list,
