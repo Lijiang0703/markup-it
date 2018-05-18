@@ -8,7 +8,7 @@ const serialize = Serializer()
 	.then((state)=>{
 		const node = state.peek();
 		const id = node.data.get('id');
-	    const text = node.data.get('html') || "<advtable id='"+id+"'></advtable>";
+	    const text = node.data.get('html') || `<advtable id="${id}"></advtable>`;
 	    
 	    return state
 	    	.shift()

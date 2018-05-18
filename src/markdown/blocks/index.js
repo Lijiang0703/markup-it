@@ -31,9 +31,9 @@ module.exports = [
     math,
     comment,
     custom,
-    paragraph,
-    unstyled,
     divBlock,
     video,
-    adv_table
+    adv_table,
+    paragraph,
+    unstyled
 ];

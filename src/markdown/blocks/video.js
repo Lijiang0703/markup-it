@@ -10,10 +10,10 @@ const serialize = Serializer().matchType(BLOCKS.VIDEO).then(function (state) {
     const node = state.peek();
     const data = node.data;
     const src = data.get('src');
-    const embed = data.get('embed');
+    // const embed = data.get('embed');
     const operator = data.get('operator') || 'mp4'
 
-    const inner = embed ? '@[' + operator+ ']('+ src+ ')' : '@['+ operator +']('+ src+ ')';
+    const inner = `@[${operator}](${src})`;
     return state
         .shift()
         .write(inner +'\n\n');

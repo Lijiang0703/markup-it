@@ -7,8 +7,8 @@ const block = {
     newline:    /^\n+/,
     code:       /^((?: {4}|\t)[^\n]+\n*)+/,
     hr:         /^( *[-*_]){3,} *(?:\n|$)/,
-    video: /^@[\\]?\[(.*?)[\\]?\][\\]?\((.*?)\)/,
-    adv_table:/^@\{table\}\((.+)\)/,
+    video:      /^@[\\]?\[(.*?)[\\]?\][\\]?\((.*?)\)/,
+    adv_table:  /^@\{table\}\((.+)\)/,
     blockquote: /^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,
     html:       /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
     // [someref]: google.com
@@ -34,7 +34,7 @@ const block = {
 };
 
 // Any string matching these inside a line will marks the end of the current paragraph
-const notParagraphPart = 'customBlock';
+const notParagraphPart = 'customBlock|video';
 // Any line starting with these marks the end of the previous paragraph.
 const notParagraphNewline = 'hr|heading|lheading|blockquote|tag|def|math|comment|customBlock|table|tablenp|fences|ol';
 

@@ -1,6 +1,9 @@
 const table = require('./table');
 
 module.exports = [
+    require('./advtable'),
+    require('./divblock'),
+    require('./video'),
     require('./paragraph'),
     require('./hr'),
     require('./blockquote'),
@@ -13,8 +16,5 @@ module.exports = [
     table.row,
     table.cell,
     require('./footnote'),
-    require('./html'),
-    require('./advtable'),
-    require('./divblock'),
-    require('./video')
+    require('./html')
 ];

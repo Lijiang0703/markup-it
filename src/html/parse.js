@@ -24,6 +24,8 @@ const BLOCK_TAGS = {
     blockquote:     BLOCKS.BLOCKQUOTE,
     p:              BLOCKS.PARAGRAPH,
     hr:             BLOCKS.HR,
+    video:          BLOCKS.video,
+    iframe:         BLOCKS.video,
 
     table:          BLOCKS.TABLE,
     tr:             BLOCKS.TABLE_ROW,
@@ -59,6 +61,16 @@ const TAGS_TO_DATA = {
             src: attribs.src,
             title: attribs.alt || ''
         };
+    },
+    video(attribs){
+        return {
+            src: attribs.src
+        }
+    },
+    iframe(attribs){
+        return {
+            src: attribs.src
+        }
     },
     h1: resolveHeadingAttrs,
     h2: resolveHeadingAttrs,
@@ -194,46 +206,6 @@ function splitLines(text, sep) {
 }
 
 /**
-<<<<<<< HEAD
- * Deserialize an HTML string
- * @param {Document} document
- * @return {Document}
- */
-function removeExtraEmptyText1(document) {
-    const slateState = Slate
-    .State.fromJSON({
-        document
-    }, {
-        normalize: false
-    });
-
-    // Remove first extra empty text nodes, since for now HTML introduces a lot of them
-    const noExtraEmptyText = slateState.change().normalize(Slate.Schema.create(SCHEMA_NO_EXTRA_TEXT)).state;
-    // Then normalize it using Slate's core schema.
-    const normalizedState = Slate.State.fromJSON(noExtraEmptyText.toJSON());
-
-    return normalizedState.document;
-}
-
-function removeExtraEmptyText(document) {
-    var slateState = Slate.Value.fromJSON({
-        document: document
-    }, {
-        normalize: false
-    });
-
-    // Remove first extra empty text nodes, since for now HTML introduces a lot of them
-    // var noExtraEmptyText = slateState.change().normalize(Slate.Schema.create(SCHEMA_NO_EXTRA_TEXT)).state;
-    var noExtraEmptyText = slateState.change().normalize(Slate.Schema.create({plugins:[SCHEMA_NO_EXTRA_TEXT]})).value;
-    // Then normalize it using Slate's core schema.
-    var normalizedState = Slate.Value.fromJSON(noExtraEmptyText.toJSON());
-
-    return normalizedState.document;
-}
-
-/**
-=======
->>>>>>> upstream/master
  * Parse an HTML string into a document
  * @param {String} str
  * @return {Document}

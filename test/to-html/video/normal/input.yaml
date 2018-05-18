@@ -1,0 +1,19 @@
+document:
+  nodes:
+    - object: block
+      type: video
+      isVoid: true
+      data: 
+        src: http://video.mp4
+    - object: block
+      type: paragraph
+      nodes:
+        - object: inline
+          type: link
+          data:
+            href: google.fr/test?q=query&a=b
+          nodes:
+            - object: text
+              leaves:
+                - text: test
+

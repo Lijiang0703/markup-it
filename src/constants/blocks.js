@@ -9,7 +9,7 @@ module.exports = {
     // Classic blocks
     CODE: 'code_block',
     CODE_LINE: 'code_line',
-    DIVBLOCK:       'div_block',
+    DIVBLOCK:  'div_block',
     BLOCKQUOTE: 'blockquote',
     PARAGRAPH: 'paragraph',
     FOOTNOTE: 'footnote',
