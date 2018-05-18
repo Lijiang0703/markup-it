@@ -20,6 +20,9 @@ module.exports = [
     html,
     definition,
     table,
+    divBlock,
+    video,
+    adv_table,
     hr,
     list,
     footnote,
@@ -30,8 +33,5 @@ module.exports = [
     comment,
     custom,
     paragraph,
-    unstyled,
-    divBlock,
-    video,
-    adv_table
+    unstyled
 ];
