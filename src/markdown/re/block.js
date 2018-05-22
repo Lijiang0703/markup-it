@@ -16,7 +16,8 @@ const block = {
     paragraph:  /^((?:[^\n]+\n?(?!hr|video|heading|lheading|blockquote|tag|def|math|comment|customBlock|table|tablenp))+)\n*/,
     text:       /^[^\n]+/,
     fences:     /^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,
-    divBlock:   /^ *(:::{1,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,
+    // divBlock:   /^ *(:::{1,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,
+    divBlock:/^ *(:::{1,}|:{3,})\s*[ \.]*(\S+)?\s*(<!--option:\s*\[([\S,\w,\s]+)\] -->)?([\s\S]*?)\s*\1 *(?:\n+|$)/,
     yamlHeader: /^ *(?=```)/,
     math:       /^ *(\${2,}) *(\n+[\s\S]+?)\s*\1 *(?:\n|$)/,
     list:       {
