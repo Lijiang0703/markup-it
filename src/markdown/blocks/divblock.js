@@ -27,7 +27,8 @@ trimNewlines.end = function (x) {
 
 
 const { Serializer, Deserializer, Block, BLOCKS } = require('../../');
-const { List } = require('immutable');
+const immutable = require('immutable');
+const List = immutable.List;
 // var  deserializeDivBlockLines = require('../../utils/deserializeDivBlockLines');
 
 var utils = require('../utils');
@@ -143,12 +144,20 @@ var deserializeFences = Deserializer()
                     
                 })
             }
-            var SYNTAXES = immu.fromJS(newObj);
+            var SYNTAXES = immutable.fromJS(newObj);
 
+            data["syntaxes"]=SYNTAXES ;
+        }else{
+            var SYNTAXES = immutable.fromJS([{
+                id:utils.unescape(_class),
+                title:utils.unescape(_class)
+                
+            }]);
             data["syntaxes"]=SYNTAXES ;
         }
         if (Boolean(match[2])) {
             data["class"]=utils.unescape(_class);
+
         }
         // console.log(data)
         const text = trimNewlines(_text);
