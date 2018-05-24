@@ -46,12 +46,26 @@ var serialize = Serializer()
         var node = state.peek();
         var nodes = node.nodes;
         var data = node.data;
-        // debugger;
+            
         // const { nodes, data } = node;
 
         // Escape the syntax
         // http://spec.commonmark.org/0.15/#example-234
-        var className = utils.escape(data.get('class') || '');
+        var className = utils.escape(data.get('class', ''));
+        var syntaxes = data.get("syntaxes", "");
+        var syntaxesJSON = syntaxes?syntaxes.toJSON():null
+        // console.log('===serialize======',syntaxesJSON)
+        var ids = [className];
+        var options = ""
+        if(syntaxesJSON){
+            ids = [];
+            for(var i=0;i<syntaxesJSON.length;i++){
+                ids.push(syntaxesJSON[i].id)
+            }
+        
+        }
+        options = " <!--option:["+ids.join(",")+"] -->"
+       
         var inner = state.use('block').serialize(node.nodes);
         // Get inner content and number of fences
         // const innerText = nodes
@@ -59,11 +73,9 @@ var serialize = Serializer()
         //     .join('\n');
         // var  hasFences = innerText.indexOf(':::') >= 0;
 
-        var  output;
-        output = 
-        `${'::: '}${Boolean(className) ? className : ''}\n` +
-        `${inner}\n` +
-        `${':::'}\n\n`;
+        var output;
+        output = '::: ' + (Boolean(className) ? className : '') + options + '\n' + (inner + '\n') + (':::' + '\n\n');
+
 
         return state
         .shift()
