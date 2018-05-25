@@ -24,7 +24,7 @@ const serialize = Serializer()
 const deserialize = Deserializer()
     .matchRegExp(reBlock.custom_html, (state, match) => {
         const node = Block.create({
-            type: BLOCKS.custom_html,
+            type: BLOCKS.CUSTOM_HTML,
             data: {
                 html: match[1]
             },

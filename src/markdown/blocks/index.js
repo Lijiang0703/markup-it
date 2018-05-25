@@ -18,13 +18,16 @@ const adv_table = require('./advtable');
 const custom_html = require('./customhtml');
 
 module.exports = [
+    // All link definition (for link reference) must be resolved first.
+    definition,
+    // HTML must be high in the stack too.
+    custom_html,
     html,
     definition,
     table,
     divBlock,
     video,
     adv_table,
-    custom_html,
     hr,
     list,
     footnote,
