@@ -35,5 +35,6 @@ module.exports = {
     // Default block
     DEFAULT: 'paragraph',
     VIDEO: 'video',
-    ADV_TABLE:'adv_table'
+    ADV_TABLE:'adv_table',
+    CUSTOM_HTML: 'custom_html'
 };

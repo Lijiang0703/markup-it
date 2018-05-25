@@ -16,5 +16,6 @@ module.exports = [
     require('./html'),
     require('./advtable'),
     require('./divblock'),
-    require('./video')
+    require('./video'),
+    require('./customhtml')
 ];

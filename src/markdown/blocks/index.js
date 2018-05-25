@@ -15,8 +15,10 @@ const comment = require('./comment');
 const html = require('./html');
 const custom = require('./custom');
 const adv_table = require('./advtable');
+const custom_html = require('./customhtml');
 
 module.exports = [
+    customhtml,
     html,
     definition,
     table,
