@@ -2,18 +2,8 @@ document:
   nodes:
     - object: block
       type: custom_html
-      nodes:
-        - object: block
-          type: html_block
-          isVoid: true
-          data: 
-            html:  |-
-              <ol>
-              <li>test</li>
-              </ol>
-            nodes:
-              - object: text
-                leaves:
-                  - object: leaf
-                    marks: []
-                    text: ' '
+      data:
+        html: |-
+          <ol>
+          <li>test</li>
+          </ol>

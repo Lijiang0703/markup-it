@@ -15,6 +15,7 @@ const comment = require('./comment');
 const html = require('./html');
 const custom = require('./custom');
 const adv_table = require('./advtable');
+const custom_html = require('./customhtml');
 
 module.exports = [
     // All link definition (for link reference) must be resolved first.
@@ -22,6 +23,10 @@ module.exports = [
     // HTML must be high in the stack too.
     html,
     table,
+    divBlock,
+    video,
+    adv_table,
+    custom_html,
     hr,
     list,
     footnote,

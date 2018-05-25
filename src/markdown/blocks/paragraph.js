@@ -28,9 +28,11 @@ const deserialize = Deserializer()
         const parentDepth = state.depth - 1;
         const isInBlockquote = (state.getProp('blockquote') === parentDepth);
         const isInLooseList = (state.getProp('looseList') === parentDepth);
-        const isTop = (state.depth === 2);
-
-        if (!isTop && !isInBlockquote && !isInLooseList) {
+        var isInDivblock = state.getProp('divblock') === parentDepth;
+    // console.log("---------------",state.getProp('divblock'))
+        var isTop = state.depth === 2;
+        
+        if (!isTop && !isInBlockquote && !isInLooseList&& !isInDivblock) {
             return;
         }
 
