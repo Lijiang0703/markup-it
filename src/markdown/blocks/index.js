@@ -18,13 +18,13 @@ const adv_table = require('./advtable');
 const custom_html = require('./customhtml');
 
 module.exports = [
-    customhtml,
     html,
     definition,
     table,
     divBlock,
     video,
     adv_table,
+    custom_html,
     hr,
     list,
     footnote,
