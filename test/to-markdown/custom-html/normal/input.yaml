@@ -1,0 +1,6 @@
+document:
+  nodes:
+    - object: block
+      type: custom_html
+      data: 
+        html: <span class="test">hello</span>
