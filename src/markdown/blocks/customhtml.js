@@ -10,11 +10,11 @@ const serialize = Serializer()
     .then((state) => {
         const node = state.peek();
         const data = node.data;
-        const html = data.get('html');
+        const html = data.get('html').trim();
 
         return state
             .shift()
-            .write(`<!--Start-->${html}<!--End-->`);
+            .write(`\n<!--Start-->\n${html}\n<!--End-->\n`);
     });
 
 /**
