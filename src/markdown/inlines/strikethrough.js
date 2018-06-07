@@ -1,13 +1,14 @@
 const { Serializer, Deserializer, Mark, MARKS } = require('../../');
 const reInline = require('../re/inline');
+const utils = require('../utils');
 
 /**
  * Serialize a strikethrough text to markdown
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .transformMarkedRange(MARKS.STRIKETHROUGH, (state, text) => {
-        return `~~${text}~~`;
+    .transformMarkedLeaf(MARKS.STRIKETHROUGH, (state, text) => {
+        return utils.wrapInline(text, '~~');
     });
 
 /**

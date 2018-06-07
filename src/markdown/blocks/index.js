@@ -24,6 +24,8 @@ module.exports = [
     custom_html,
     html,
     definition,
+    // HTML must be high in the stack too.
+    html,
     table,
     divBlock,
     video,
@@ -37,6 +39,9 @@ module.exports = [
     math,
     comment,
     custom,
+    divBlock,
+    video,
+    adv_table,
     paragraph,
     unstyled
 ];

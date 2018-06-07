@@ -1,13 +1,14 @@
 const { Serializer, Deserializer, Mark, MARKS } = require('../../');
 const reInline = require('../re/inline');
+const utils = require('../utils');
 
 /**
  * Serialize a italic text to markdown
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .transformMarkedRange(MARKS.ITALIC, (state, text) => {
-        return `_${text}_`;
+    .transformMarkedLeaf(MARKS.ITALIC, (state, text) => {
+        return utils.wrapInline(text, '_');
     });
 
 /**

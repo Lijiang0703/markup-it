@@ -8,13 +8,12 @@ const trimTrailingLines = require('trim-trailing-lines');
 const MarkupIt = require('../src/');
 const markdown = require('../src/markdown');
 const html = require('../src/html');
-const asciidoc = require('../src/asciidoc');
 const unendingTags = require('./unendingTags');
 
 /**
- * Read a file input to a state.
+ * Read a file input to a value.
  * @param  {String} filePath
- * @return {RawState} state
+ * @return {RawValue} value
  */
 function readFileInput(filePath) {
     const ext = path.extname(filePath);
@@ -23,8 +22,8 @@ function readFileInput(filePath) {
     function deserializeWith(syntax, props = {}) {
         const parser = MarkupIt.State.create(syntax, props);
         const document = parser.deserializeToDocument(content);
-        const state = Slate.State.create({ document });
-        return state.toJSON();
+        const value = Slate.Value.create({ document });
+        return value.toJSON();
     }
 
     switch (ext) {
@@ -34,24 +33,22 @@ function readFileInput(filePath) {
         });
     case '.html':
         return deserializeWith(html);
-    case '.adoc':
-        return deserializeWith(asciidoc);
     case '.yaml':
-        return Slate.State.fromJSON(readYaml(filePath)).toJSON();
+        return Slate.Value.fromJSON(readYaml(filePath)).toJSON();
     }
 }
 
 /**
- * Convert an input state to an output
- * @param  {RawState} input
+ * Convert an input value to an output
+ * @param  {RawValue} value
  * @param  {String} outputExt
  * @return {Mixed}
  */
-function convertFor(input, outputExt) {
+function convertFor(value, outputExt) {
 
     function serializeWith(syntax, props) {
         const parser = MarkupIt.State.create(syntax, props);
-        const inputDocument = Slate.State.fromJSON(input).document;
+        const inputDocument = Slate.Value.fromJSON(value).document;
         const out = parser.serializeDocument(inputDocument);
 
         // Trim to avoid newlines being compared at the end
@@ -65,10 +62,8 @@ function convertFor(input, outputExt) {
         });
     case '.html':
         return serializeWith(html);
-    case '.adoc':
-        return serializeWith(asciidoc);
     case '.yaml':
-        return input;
+        return value;
     }
 }
 
@@ -88,7 +83,7 @@ function readFileOutput(fileName) {
         // We trim to avoid newlines being compared at the end
         return trimTrailingLines(content);
     case '.yaml':
-        return Slate.State.fromJSON(readYaml(fileName)).toJSON();
+        return Slate.Value.fromJSON(readYaml(fileName)).toJSON();
     }
 }
 

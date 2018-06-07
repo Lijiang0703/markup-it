@@ -1,0 +1,8 @@
+document:
+  nodes:
+    - object: block
+      type: video
+      isVoid: true
+      data: 
+        src: http://video.mp4
+        operator: mp4

@@ -1,12 +1,13 @@
 const { Serializer, Deserializer, Mark, Text, MARKS } = require('../../');
 const reInline = require('../re/inline');
+const utils = require('../utils');
 
 /**
  * Serialize a code text to markdown
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .transformMarkedRange(MARKS.CODE, (state, text, mark) => {
+    .transformMarkedLeaf(MARKS.CODE, (state, text, mark) => {
         let separator = '`';
 
         // We need to find the right separator not present in the content
@@ -14,7 +15,7 @@ const serialize = Serializer()
             separator += '`';
         }
 
-        return (separator + text + separator);
+        return utils.wrapInline(text, separator);
     });
 
 /**

@@ -1,13 +1,14 @@
 const { Serializer, Deserializer, Mark, MARKS } = require('../../');
 const reInline = require('../re/inline');
+const utils = require('../utils');
 
 /**
  * Serialize a bold text to markdown
  * @type {Serializer}
  */
 const serialize = Serializer()
-    .transformMarkedRange(MARKS.BOLD, (state, text, mark) => {
-        return `**${text}**`;
+    .transformMarkedLeaf(MARKS.BOLD, (state, text, mark) => {
+        return utils.wrapInline(text, '**');
     });
 
 /**
