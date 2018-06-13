@@ -5,6 +5,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Unreleased
 
+### 8.1.0
+
+- Parse Math blocks as true block, instead of inline maths.
+
+### 8.0.3
+
+- Fix serialization and deserialization for JSON strings containing escaped characters
+
+### 8.0.2
+
+- Fix serialization of bold or italic to not wrap spaces (`**bold** text` instead of `**bold **text`)
+
 ### 8.0.1
 
 - Fix parsing of `[def]` for code blocks in list 

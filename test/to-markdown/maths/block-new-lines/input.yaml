@@ -4,4 +4,8 @@ document:
       type: math
       isVoid: true
       data:
-        formula: a = b = c = d
+        formula: |-
+
+
+              a = b
+              c = d

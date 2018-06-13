@@ -4,25 +4,13 @@ const { Serializer, Deserializer, Inline, INLINES } = require('../../');
 const reInline = require('../re/inline');
 
 /**
- * Return true if a tex content is inline
- */
-function isInlineTex(content) {
-    return content[0] !== '\n';
-}
-
-/**
  * Normalize some TeX content
  * @param {String} content
- * @param {Boolean} isInline
  * @return {String}
  */
-function normalizeTeX(content, isInline) {
+function normalizeTeX(content) {
     content = ltrim(content, '\n');
     content = rtrim(content, '\n');
-
-    if (!isInline) {
-        content = '\n' + content + '\n';
-    }
 
     return content;
 }
@@ -36,16 +24,11 @@ const serialize = Serializer()
     .then((state) => {
         const node = state.peek();
         const { data } = node;
-        let tex = data.get('tex');
-        const isInline = isInlineTex(tex);
+        let formula = data.get('formula');
 
-        tex = normalizeTeX(tex, isInline);
+        formula = normalizeTeX(formula);
 
-        let output = '$$' + tex + '$$';
-
-        if (!isInline) {
-            output = '\n' + output + '\n';
-        }
+        const output = '$$' + formula + '$$';
 
         return state
             .shift()
@@ -58,9 +41,9 @@ const serialize = Serializer()
  */
 const deserialize = Deserializer()
     .matchRegExp(reInline.math, (state, match) => {
-        const tex = match[1];
+        const formula = match[1].trim();
 
-        if (state.getProp('math') === false || tex.trim().length === 0) {
+        if (state.getProp('math') === false || !formula) {
             return;
         }
 
@@ -68,7 +51,7 @@ const deserialize = Deserializer()
             type: INLINES.MATH,
             isVoid: true,
             data: {
-                tex
+                formula
             }
         });
 

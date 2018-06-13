@@ -31,7 +31,9 @@ module.exports = {
     UL_LIST: 'unordered_list',
     LIST_ITEM: 'list_item',
     // Comment
-    COMMENT: 'comment',
+    COMMENT:    'comment',
+    // Math
+    MATH:       'math',
     // Default block
     DEFAULT: 'paragraph',
     VIDEO: 'video',
