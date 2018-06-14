@@ -16,6 +16,7 @@ const html = require('./html');
 const custom = require('./custom');
 const adv_table = require('./advtable');
 const custom_html = require('./customhtml');
+const tab = require('./tab');
 
 module.exports = [
     // All link definition (for link reference) must be resolved first.
@@ -43,5 +44,6 @@ module.exports = [
     video,
     adv_table,
     paragraph,
-    unstyled
+    unstyled,
+    tab
 ];

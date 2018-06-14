@@ -20,5 +20,7 @@ module.exports = [
     require('./advtable'),
     require('./divblock'),
     require('./video'),
-    require('./customhtml')
+    require('./customhtml'),
+    require('./tab'),
+    require('./tabitem')
 ];
