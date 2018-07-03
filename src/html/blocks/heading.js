@@ -27,8 +27,21 @@ const serialize = Serializer()
  */
 function getAttrs(headingNode) {
     return {
-        id: headingNode.data.get('id')
+        id: headingNode.data.get('id') || uuid(4)
     };
 }
-
+function uuid(count){//用来生成unique字符串
+		function s4() {
+			return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+		}
+		if(!count)
+			return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
+		else{
+			var r='';
+			while(count--){
+				r=r+s4();
+			}
+			return r;
+		}
+	},
 module.exports = { serialize };
