@@ -1,0 +1,36 @@
+document:
+  nodes:
+    - object: block
+      type: toc
+    - object: block
+      data:
+        id: the-id
+      type: header_one
+      nodes:
+        - object: text
+          leaves:
+            - text: Heading 1
+    - object: block
+      type: paragraph
+      nodes:
+        - object: text
+          leaves:
+            - text: |-
+                Hello
+                World
+    - object: block
+      data:
+        id: the-id2
+      type: header_two
+      nodes:
+        - object: text
+          leaves:
+            - text: Heading 2
+    - object: block
+      data:
+        id: the-id3
+      type: header_three
+      nodes:
+        - object: text
+          leaves:
+            - text: Heading 3

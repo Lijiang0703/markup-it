@@ -43,5 +43,5 @@ function uuid(count){//用来生成unique字符串
 			}
 			return r;
 		}
-	},
+	}
 module.exports = { serialize };

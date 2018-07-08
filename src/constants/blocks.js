@@ -38,5 +38,6 @@ module.exports = {
     DEFAULT: 'paragraph',
     VIDEO: 'video',
     ADV_TABLE:'adv_table',
-    CUSTOM_HTML: 'custom_html'
+    CUSTOM_HTML: 'custom_html',
+    TOC: 'toc'
 };

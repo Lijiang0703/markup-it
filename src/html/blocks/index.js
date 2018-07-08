@@ -22,5 +22,6 @@ module.exports = [
     require('./video'),
     require('./customhtml'),
     require('./tab'),
-    require('./tabitem')
+    require('./tabitem'),
+    require('./toc')
 ];
