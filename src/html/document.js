@@ -1,5 +1,7 @@
 const { Serializer, Deserializer, BLOCKS } = require('../');
 const parse = require('./parse');
+const {uuid} = require('../utils/escape')
+const {Map} = require('immutable')
 /**
  * Serialize a document to HTML.
  * @type {Serializer}
@@ -34,12 +36,14 @@ const deserialize = Deserializer()
             .push(document);
     });
 function getToc(nodes){
-  const header = getHeader(nodes,{}).header
+  const data = getHeader(nodes,{})
+  const header = data.result.header
+  nodes = data.nodes
   const html = createDocHTML(header)
 
   return nodes.map(function(n){
     if(n.type === 'toc'){
-      return n.set('data',{html: html})
+      return n.set('data',Map({html: html}))
     }
     return n ;
   })
@@ -56,18 +60,46 @@ const HEAD = [BLOCKS.HEADING_1,
 function getHeader(nodes,result) {
   // let nodes = data.nodes
 
-  for(let i=0;i<nodes.size;i++){
-    let node = nodes._tail.array[i]
+  nodes = nodes.map(function(node){
     let type = node.type;
     let index = HEAD.indexOf(type)
 
     if(index!= -1){ //找到
+      //如果header没有id，则需要添加默认的id
+      if(node.data == undefined || node.data.get('id') == undefined){
+        node = node.set('data',Map({
+          id: uuid(4)
+        }))
+      }
       result = addHeader(node,index+1,result)
     } else if(node.kind == "block"){ //继续遍历子节点,需要判断哪些元素需要继续遍历，提高效率
-      result = getHeader(node.nodes,result)
+      let header = getHeader(node.nodes,result)
+      result = header.result
+      node = node.set('nodes',header.nodes)
     }
+    return node
+  })
+  // for(let i=0;i<nodes.size;i++){
+  //   let node = nodes._tail.array[i]
+  //   let type = node.type;
+  //   let index = HEAD.indexOf(type)
+  //
+  //   if(index!= -1){ //找到
+  //     //如果header没有id，则需要添加默认的id
+  //     if(node.data.get('id') == undefined){
+  //       node = node.set('data',{
+  //         id: uuid(4)
+  //       })
+  //     }
+  //     result = addHeader(node,index+1,result)
+  //   } else if(node.kind == "block"){ //继续遍历子节点,需要判断哪些元素需要继续遍历，提高效率
+  //     result = getHeader(node.nodes,result)
+  //   }
+  // }
+  return {
+    result : result,
+    nodes: nodes
   }
-  return result
 }
 function addHeader(node,type,result){ //直接生成html
   // let header = result.header;  //平行结构
@@ -80,9 +112,10 @@ function addHeader(node,type,result){ //直接生成html
     //
     // })
   // }else{ //new 行
+  const id = node.data.id || node.data.get('id')
     result.header.push({
       type: type,
-      html: `<a href='#${node.data.get('id')}'>${node.text}</a>`
+      html: `<a href='#${id}'>${node.text}</a>`
     })
   // }
   return result

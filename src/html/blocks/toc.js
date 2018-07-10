@@ -8,7 +8,7 @@ const serialize = Serializer()
 	.then(state=>{
 		  const node= state.peek();
       const data = node.data
-      const text = data.html || "";
+      const text = data.get('html') || "";
 
 	    return state
 	    	.shift()

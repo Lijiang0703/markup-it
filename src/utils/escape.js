@@ -31,8 +31,26 @@ function escapeWith(replacements, text) {
 function unescapeWith(replacements, text) {
     return escapeWith(replacements.flip(), text);
 }
-
+/**
+ * Create random idea.
+ * @param {Number} count
+ */
+function uuid(count){//用来生成unique字符串
+		function s4() {
+			return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+		}
+		if(!count)
+			return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
+		else{
+			var r='';
+			while(count--){
+				r=r+s4();
+			}
+			return r;
+		}
+	}
 module.exports = {
     escapeWith,
-    unescapeWith
+    unescapeWith,
+    uuid
 };
